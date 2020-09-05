@@ -7,7 +7,7 @@
  * 0 - Success
  * 1-100 - System 
  */
-typedef uint32_t ErrorCode;
+typedef int32_t ErrorCode;
 
 /*
 enum ErrorCode {
@@ -34,11 +34,9 @@ private:
 };
 */
 
-
-
 #define SUCCESS 0
-#define NOT_IMPLEMENTED -2
-#define NULLPTR_INPUT -3
+#define NOT_IMPLEMENTED 2
+#define NULLPTR_INPUT 3
 //#define CHECK_CODE(rc) if( rc != SUCCESS ) { std::cerr << rc << std::endl; return false; } else 
 
 #endif

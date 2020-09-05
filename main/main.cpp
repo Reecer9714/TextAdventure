@@ -39,6 +39,8 @@ int main() {
 
     cout << state.currentLocation->getDesc() << endl;
     
+    ErrorCode ec;
+
     while( state.running ){
 
         getline( cin, input );
@@ -51,10 +53,13 @@ int main() {
         bool verbFound = false;
         for( int i = 0; i < wordCount; i++ ){
             Verb verb;
-            ErrorCode rc = vocab.GetVerb( tokens[ i ], verb );
-            if( rc == SUCCESS ) {
+            ec = vocab.GetVerb( tokens[ i ], verb );
+            if( ec == SUCCESS ) {
                 verbFound = true;
-                af->perform( verb, state );
+                ec = af->perform( verb, state );
+                if( ec != SUCCESS ) {
+                    cout << "Error: " << ec << endl;
+                }
             }
         }
 
