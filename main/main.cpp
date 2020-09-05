@@ -35,7 +35,6 @@ int main() {
     state.currentLocation = intro;
 
     string input;
-    vector<string> tokens;
 
     cout << state.currentLocation->getDesc() << endl;
     
@@ -46,14 +45,14 @@ int main() {
         getline( cin, input );
         // cout << input << endl;
         //Parse input
-        parseInput( input, tokens );
+        parseInput( input, state.currentTokens );
         //Change state
         //Display state
-        int wordCount = tokens.size();
+        int wordCount = state.currentTokens.size();
         bool verbFound = false;
         for( int i = 0; i < wordCount; i++ ){
             Verb verb;
-            ec = vocab.GetVerb( tokens[ i ], verb );
+            ec = vocab.GetVerb( state.currentTokens[ i ], verb );
             if( ec == SUCCESS ) {
                 verbFound = true;
                 ec = af->perform( verb, state );
