@@ -17,7 +17,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "command": "make.exe",
+            "command": "make",
             "problemMatcher": {
                 "owner": "cpp",
                 "fileLocation": ["relative", "${workspaceFolder}"],
@@ -38,7 +38,7 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "command": "make.exe",
+            "command": "make",
             "args": [
                 "run"
             ]
@@ -50,7 +50,7 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "command": "make.exe",
+            "command": "make",
             "args": [
                 "test"
             ]
