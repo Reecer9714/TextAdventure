@@ -3,7 +3,6 @@
 Location::Location(std::string name, std::string desc) {
     this->name = name;
     this->description = desc;
-    this->entities = std::vector<Entity>();
 };
 
 Location::~Location() {
@@ -22,7 +21,7 @@ Connection* Location::getExits(){
     return this->exits;
 };
 
-std::vector<Entity> Location::getEntities(){
+std::list<Entity*> Location::getEntities(){
     return this->entities;
 };
 
@@ -46,10 +45,10 @@ void Location::disconnectLocation(Direction d){
     this->exits[d].connected = false;
 };
 
-void Location::addEntity(Entity e){
+void Location::addEntity(Entity* e){
     this->entities.push_back(e);
 };
 
-void Location::removeEntity(Entity e){
-    //this->entities.remove(e);
+void Location::removeEntity(Entity* e){
+    this->entities.remove(e);
 };

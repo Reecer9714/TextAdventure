@@ -2,7 +2,7 @@
 #define Location_H
 
 #include <string>
-#include <vector>
+#include <list>
 #include <unordered_map>
 
 #include "main/ReturnCode.h"
@@ -45,7 +45,7 @@ class Location {
     std::string name;
     std::string description;
     Connection exits[NUM_OF_DIRECTIONS];
-    std::vector<Entity> entities;
+    std::list<Entity*> entities;
 
 public:
 
@@ -56,13 +56,13 @@ public:
     std::string getName();
     std::string getDesc();
     Connection* getExits();
-    std::vector<Entity> getEntities();
+    std::list<Entity*> getEntities();
 
     ErrorCode connectLocation(Direction d, Location *other, ExitStatus s = OPEN, bool visible = true);
     void disconnectLocation(Direction d);
     
-    void addEntity(Entity e);
-    void removeEntity(Entity e);
+    void addEntity(Entity* e);
+    void removeEntity(Entity* e);
 
 private:
     Location();
