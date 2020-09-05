@@ -1,11 +1,10 @@
 CXX		  := g++
 CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
-BIN		:= bin/main
-MAIN	:= main
+BIN		:= bin
+SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
-TESTBIN := bin/test
 TEST	:= test
 
 ifeq ($(OS), Windows_NT)
@@ -18,30 +17,29 @@ EXECUTABLE	:= main
 TESTEXE		:= test
 
 MAINSOURCES		:= \
-	main/main.cpp	\
-	main/**/*.cpp
+	$(SRC)/main.cpp	\
+	$(SRC)/**/*.cpp
 
 TESTSOURCES		:= \
-	test/test-main.cpp \
-	main/**/*.cpp \
-	test/**/*.cpp
+	$(TEST)/test-main.cpp \
+	$(SRC)/**/*.cpp \
+	$(TEST)/**/*.cpp
 
 
 build: $(BIN)/$(EXECUTABLE)
 
-run: clean all
+run: build
 	clear
 	./$(BIN)/$(EXECUTABLE)
 
-test: $(TESTBIN)/$(TESTEXE)
-	./$(TESTBIN)/$(TESTEXE)
+test: $(BIN)/$(TESTEXE)
+	./$(BIN)/$(TESTEXE)
 
 $(BIN)/$(EXECUTABLE): $(MAINSOURCES)
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(MAIN) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(SRC) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
-$(TESTBIN)/$(TESTEXE): $(TESTSOURCES)
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(MAIN) -I$(TEST) -L$(LIB) $^ -o $@ $(LIBRARIES)
+$(BIN)/$(TESTEXE): $(TESTSOURCES)
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(SRC) -I$(TEST) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	-rm $(BIN)/*
-	-rm $(TESTBIN)/*
+	-rm -f $(BIN)/*
