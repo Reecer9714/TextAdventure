@@ -57,7 +57,24 @@
 			"xhash": "cpp",
 			"unordered_map": "cpp",
 			"algorithm": "cpp",
-			"functional": "cpp"
+			"functional": "cpp",
+			"any": "cpp",
+			"compare": "cpp",
+			"ctime": "cpp",
+			"fstream": "cpp",
+			"iomanip": "cpp",
+			"locale": "cpp",
+			"map": "cpp",
+			"optional": "cpp",
+			"regex": "cpp",
+			"set": "cpp",
+			"sstream": "cpp",
+			"variant": "cpp",
+			"xlocbuf": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xloctime": "cpp",
+			"xtree": "cpp"
 		},
 		"terminal.integrated.shell.windows": "cmd.exe"
 	}
