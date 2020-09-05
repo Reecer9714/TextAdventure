@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tpp": "cpp"
+    },
+    "terminal.integrated.shell.windows": "cmd.exe",
+    "testMate.cpp.test.executables": "{build,Build,BUILD,out,Out,OUT,bin,test}/**/*{test,Test,TEST}*"
+}
