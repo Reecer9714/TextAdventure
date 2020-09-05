@@ -1,6 +1,6 @@
-#include "..\Gtest\gtest.h"
+#include "GTest/gtest.h"
 
-#include <data\Location.h>
+#include <data/Location.h>
 
 using namespace ::testing;
 
