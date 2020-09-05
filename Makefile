@@ -8,7 +8,12 @@ LIB		:= lib
 TESTBIN := bin/test
 TEST	:= test
 
-LIBRARIES	:=
+ifeq ($(OS), Windows_NT)
+	LIBRARIES	:= 
+else
+	LIBRARIES	:= -lpthread
+endif
+
 EXECUTABLE	:= main
 TESTEXE		:= test
 
@@ -17,8 +22,8 @@ MAINSOURCES		:= \
 	main/**/*.cpp
 
 TESTSOURCES		:= \
-	main/**/*.cpp \
 	test/test-main.cpp \
+	main/**/*.cpp \
 	test/**/*.cpp
 
 
@@ -35,8 +40,8 @@ $(BIN)/$(EXECUTABLE): $(MAINSOURCES)
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(MAIN) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 $(TESTBIN)/$(TESTEXE): $(TESTSOURCES)
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(MAIN) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(MAIN) -I$(TEST) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	-rm $(BIN)/$(SRC)*
-	-rm $(BIN)/$(TEST)*
+	-rm $(BIN)/*
+	-rm $(TESTBIN)/*
