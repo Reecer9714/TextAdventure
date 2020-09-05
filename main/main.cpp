@@ -16,7 +16,7 @@ int main() {
 
     Vocabulary vocab;
 
-    ActionFactory* af;
+    ActionPerformer* af;
     af = af->getInstance();
 
     vocab.AddWord( "quit", Quit );
