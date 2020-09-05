@@ -22,8 +22,7 @@ enum Verb {
     Attack,
     Stealth,
     Steal,
-    Inventory,
-    VerbLength
+    Inventory
 };
 
 class Action {
