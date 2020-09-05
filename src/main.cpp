@@ -1,8 +1,8 @@
 #include <iostream>
 #include <regex>
 
-#include "main/stringutils.h"
-#include "main/GameState.h"
+#include "core/stringutils.h"
+#include "core/GameState.h"
 #include "interaction/Vocabulary.h"
 #include "data/Location.h"
 #include "data/Entity.h"

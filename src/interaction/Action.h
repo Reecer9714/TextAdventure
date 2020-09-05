@@ -1,8 +1,8 @@
 #ifndef ACTION_H
 #define ACTION_H
 
-#include "main/ReturnCode.h"
-#include "main/GameState.h"
+#include "core/ReturnCode.h"
+#include "core/GameState.h"
 #include "data/Entity.h"
 #include "data/Location.h"
 

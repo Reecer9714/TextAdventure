@@ -4,8 +4,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "main/stringutils.h"
-#include "main/ReturnCode.h"
+#include "core/stringutils.h"
+#include "core/ReturnCode.h"
 #include "VocabRC.h"
 #include "Action.h"
 
