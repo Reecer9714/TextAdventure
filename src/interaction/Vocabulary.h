@@ -10,8 +10,8 @@
 #include "Action.h"
 
 class Vocabulary {
-
-    std::unordered_map<std::string, Verb> vocab;
+    typedef std::unordered_map<std::string, Verb> VocabList;
+    VocabList vocab;
 
 public:
     //Finds an action the is mapped to the word

@@ -3,6 +3,7 @@
 
 #include "core/ReturnCode.h"
 
-#define FAILED_GET_ACTION 100
+#define FAILED_MATCH_VERB 100
+#define DUPLICATE_WORD 101
 
 #endif

@@ -1,9 +1,9 @@
 #include "Vocabulary.h"
 
 ErrorCode Vocabulary::GetVerb(std::string word, Verb& verb){
-    std::unordered_map<std::string, Verb>::iterator match = vocab.find(word);
+    VocabList::iterator match = vocab.find(word);
     if(match == vocab.end()){
-        return FAILED_GET_ACTION;
+        return FAILED_MATCH_VERB;
     }
 
     verb = match->second;
@@ -11,6 +11,9 @@ ErrorCode Vocabulary::GetVerb(std::string word, Verb& verb){
 };
 
 ErrorCode Vocabulary::AddWord(std::string word, Verb verb){
-    this->vocab.emplace(tolowercase(word), verb);
+    std::pair<VocabList::iterator, bool> ret = this->vocab.emplace(tolowercase(word), verb);
+    if( ret.second == false ){
+        return DUPLICATE_WORD;
+    }
     return SUCCESS;
 };
