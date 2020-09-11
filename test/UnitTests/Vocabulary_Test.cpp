@@ -10,7 +10,7 @@ public:
 
     void SetUp() override {
         vocab = new Vocabulary();
-        vocab->AddWord("quit", Quit);
+        vocab->AddWord("quit", Verb::Quit);
     }
 
     void TearDown() override {
@@ -22,7 +22,7 @@ public:
 TEST_F(Vocabulary_Test, AddVerb_DuplicateWord_ErrorCode){
     ErrorCode ec;
 
-    ec = vocab->AddWord("quit", Quit);
+    ec = vocab->AddWord("quit", Verb::Quit);
 
     EXPECT_EQ(ec, DUPLICATE_WORD);
 }
@@ -31,7 +31,7 @@ TEST_F(Vocabulary_Test, AddVerb_Success_ErrorCode){
     ErrorCode ec;
     Verb verb;
 
-    ec = vocab->AddWord("newword", Quit);
+    ec = vocab->AddWord("newword", Verb::Quit);
 
     EXPECT_EQ(ec, SUCCESS);
 
@@ -39,7 +39,7 @@ TEST_F(Vocabulary_Test, AddVerb_Success_ErrorCode){
 
     EXPECT_EQ(ec, SUCCESS);
 
-    EXPECT_EQ(verb, Quit);
+    EXPECT_EQ(verb, Verb::Quit);
 }
 
 TEST_F(Vocabulary_Test, GetVerb_FailedMatchVerb_ErrorCode){
@@ -59,5 +59,5 @@ TEST_F(Vocabulary_Test, GetVerb_Success_ErrorCode){
 
     EXPECT_EQ(ec, SUCCESS);
 
-    EXPECT_EQ(verb, Quit);
+    EXPECT_EQ(verb, Verb::Quit);
 }
