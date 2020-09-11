@@ -7,12 +7,20 @@
 #include "interaction/ActionPerformer.h"
 #include "data/Location.h"
 #include "data/Entity.h"
+#include "config/ConfigParser.h"
 
 using namespace std;
 
 void parseInput(string input, vector<string> &tokens);
 
-int main() {
+void loadConfiguration(){
+    ConfigParser parser;
+    parser.Parse();
+}
+
+int main(){
+    loadConfiguration();
+
     GameState state;
 
     Vocabulary vocab;
