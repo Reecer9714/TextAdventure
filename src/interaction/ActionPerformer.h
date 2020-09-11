@@ -6,7 +6,7 @@
 #include "data/Entity.h"
 #include "data/Location.h"
 
-enum Verb {
+enum class Verb {
     Quit,
     Move,
     Look,
@@ -27,25 +27,23 @@ enum Verb {
 
 class Action {
 public:
-    virtual ErrorCode perform(GameState &state) = 0;
+    virtual ErrorCode Perform(GameState &state) = 0;
 };
 
 class ActionPerformer {
-
-private:
     ActionPerformer();
-    static ActionPerformer* mpActionPerformerInst;
+    static ActionPerformer* inst;
 
     std::unordered_map<Verb, Action*> actions;
 public:
-    static ActionPerformer* getInstance();
+    static ActionPerformer* GetInstance();
 
-    ErrorCode perform(Verb verb, GameState &state);
+    ErrorCode Perform(Verb verb, GameState &state);
 };
 
 class QuitAction : public Action {
 public:
-    virtual ErrorCode perform(GameState &state) override;
+    virtual ErrorCode Perform(GameState &state) override;
 };
 
 #endif

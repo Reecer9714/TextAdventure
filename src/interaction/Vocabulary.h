@@ -7,7 +7,7 @@
 #include "core/stringutils.h"
 #include "core/ReturnCode.h"
 #include "VocabRC.h"
-#include "Action.h"
+#include "ActionPerformer.h"
 
 class Vocabulary {
     typedef std::unordered_map<std::string, Verb> VocabList;

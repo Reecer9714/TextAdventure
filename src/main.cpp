@@ -4,6 +4,7 @@
 #include "core/stringutils.h"
 #include "core/GameState.h"
 #include "interaction/Vocabulary.h"
+#include "interaction/ActionPerformer.h"
 #include "data/Location.h"
 #include "data/Entity.h"
 
@@ -16,12 +17,11 @@ int main() {
 
     Vocabulary vocab;
 
-    ActionPerformer* af;
-    af = af->getInstance();
+    ActionPerformer* af = ActionPerformer::GetInstance();
 
-    vocab.AddWord( "quit", Quit );
-    vocab.AddWord( "q", Quit );
-    vocab.AddWord( "exit", Quit );
+    vocab.AddWord( "quit", Verb::Quit );
+    vocab.AddWord( "q", Verb::Quit );
+    vocab.AddWord( "exit", Verb::Quit );
 
     Location* intro = new Location( "Intro", "This is the intro room yay!!" );
     Location* northRoom = new Location( "North Room", "This is the to the North" );
@@ -55,7 +55,7 @@ int main() {
             ec = vocab.GetVerb( state.currentTokens[ i ], verb );
             if( ec == SUCCESS ) {
                 verbFound = true;
-                ec = af->perform( verb, state );
+                ec = af->Perform( verb, state );
                 if( ec != SUCCESS ) {
                     cout << "Error: " << ec << endl;
                 }
