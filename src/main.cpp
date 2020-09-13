@@ -23,6 +23,9 @@ int main() {
     vocab.AddWord( "q", Verb::Quit );
     vocab.AddWord( "exit", Verb::Quit );
 
+    vocab.AddWord( "look", Verb::Look);
+
+
     Location* intro = new Location( "Intro", "This is the intro room yay!!" );
     Location* northRoom = new Location( "North Room", "This is the to the North" );
     Location* seRoom = new Location( "SE Room", "This is the room to the SE" );

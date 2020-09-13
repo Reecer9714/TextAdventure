@@ -1,7 +1,9 @@
 #ifndef ACTION_H
 #define ACTION_H
 
-#include "core/ReturnCode.h"
+#include <iostream>
+
+#include "ActionRC.h"
 #include "core/GameState.h"
 #include "data/Entity.h"
 #include "data/Location.h"
@@ -44,6 +46,11 @@ public:
 class QuitAction : public Action {
 public:
     virtual ErrorCode Perform(GameState &state) override;
+};
+
+class LookAction : public Action {
+public:
+    virtual ErrorCode Perform(GameState& state) override;
 };
 
 #endif

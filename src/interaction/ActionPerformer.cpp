@@ -5,10 +5,16 @@ ErrorCode QuitAction::Perform(GameState &state) {
     return SUCCESS;
 };
 
+ErrorCode LookAction::Perform(GameState &state) {
+    std::cout << state.currentLocation->getDesc() << std::endl;
+    return SUCCESS;
+};
+
 ActionPerformer* ActionPerformer::inst = nullptr;
 
 ActionPerformer::ActionPerformer() {
     this->actions.emplace(Verb::Quit, new QuitAction());
+    this->actions.emplace(Verb::Look, new LookAction());
 };
 
 ActionPerformer* ActionPerformer::GetInstance() {
@@ -26,5 +32,5 @@ ErrorCode ActionPerformer::Perform(Verb verb, GameState& ref) {
         return this->actions.find(verb)->second->Perform(ref);
     }
     
-    return NOT_IMPLEMENTED;
+    return ACTION_NOT_FOUND;
 };
