@@ -1,6 +1,7 @@
 #include "ActionPerformer.h"
 
-ErrorCode QuitAction::Perform(GameState &state) {
+ReturnCode QuitAction::Perform(GameState& state)
+{
     state.running = false;
     return SUCCESS;
 };
@@ -19,8 +20,9 @@ ActionPerformer* ActionPerformer::GetInstance() {
     return inst;
 };
 
-ErrorCode ActionPerformer::Perform(Verb verb, GameState& ref) {
-    std::unordered_map<Verb, Action *>::const_iterator match = this->actions.find(verb);
+ReturnCode ActionPerformer::Perform(Verb verb, GameState& ref)
+{
+    std::unordered_map<Verb, Action*>::const_iterator match = this->actions.find(verb);
     
     if( match != this->actions.end() ) {
         return this->actions.find(verb)->second->Perform(ref);

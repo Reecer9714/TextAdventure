@@ -38,7 +38,8 @@ int main() {
 
     cout << state.currentLocation->getDesc() << endl;
     
-    ErrorCode ec;
+    while (state.running)
+    {
 
     while( state.running ){
 
@@ -52,17 +53,20 @@ int main() {
         bool verbFound = false;
         for( int i = 0; i < wordCount; i++ ){
             Verb verb;
-            ec = vocab.GetVerb( state.currentTokens[ i ], verb );
-            if( ec == SUCCESS ) {
+            ReturnCode ec = vocab.GetVerb(state.currentTokens[i], verb);
+            if (ec.Success())
+            {
                 verbFound = true;
-                ec = af->Perform( verb, state );
-                if( ec != SUCCESS ) {
-                    cout << "Error: " << ec << endl;
+                ec = af->Perform(verb, state);
+                if (!ec.Success())
+                {
+                    cout << "Error: " << ec.ToString() << endl;
                 }
             }
         }
 
-        if( !verbFound ){
+        if (!verbFound)
+        {
             cout << "No Verb Found" << endl;
         }
     }
@@ -70,16 +74,19 @@ int main() {
     return 0;
 }
 
-void parseInput(string input, vector<string> &tokens) {
+void parseInput(string input, vector<string>& tokens)
+{
     tokens.clear();
-    if( input.length() ) {
-        input = tolowercase( trim( input ) );
-        std::regex re( "\\s+" );
-        std::sregex_token_iterator curToken( input.begin(), input.end(), re, -1 );
+    if (input.length())
+    {
+        input = tolowercase(trim(input));
+        std::regex re("\\s+");
+        std::sregex_token_iterator curToken(input.begin(), input.end(), re, -1);
         std::sregex_token_iterator endOfTokens;
 
-        for( ; curToken != endOfTokens; ++curToken ) {
-            tokens.push_back( curToken->str() );
+        for (; curToken != endOfTokens; ++curToken)
+        {
+            tokens.push_back(curToken->str());
         }
     }
 }
