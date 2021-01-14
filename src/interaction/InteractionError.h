@@ -11,7 +11,7 @@ struct InteractionSubSystem : public SubSystem
 constexpr const InteractionSubSystem
 InteractionSubSystem::VOCAB{ 0 };
 
-#define FAILED_MATCH_VERB ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0001)
-#define DUPLICATE_WORD ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0002)
+static constexpr ReturnCode FAILED_MATCH_VERB = ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0001);
+static constexpr ReturnCode DUPLICATE_WORD = ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0002);
 
 #endif
