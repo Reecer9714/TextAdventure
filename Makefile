@@ -9,8 +9,12 @@ TEST	:= test
 
 ifeq ($(OS), Windows_NT)
 	LIBRARIES	:= 
+	FixPath = $(subst /,\,$1)
+	Run = $(call FixPath,$1).exe
 else
 	LIBRARIES	:= -lpthread
+	FixPath = $1
+	Run = ./$1
 endif
 
 EXECUTABLE	:= main
@@ -29,11 +33,10 @@ TESTSOURCES		:= \
 build: $(BIN)/$(EXECUTABLE)
 
 run: build
-	clear
-	./$(BIN)/$(EXECUTABLE)
+	$(call Run,$(BIN)/$(EXECUTABLE))
 
 test: $(BIN)/$(TESTEXE)
-	./$(BIN)/$(TESTEXE)
+	$(call Run,$(BIN)/$(TESTEXE))
 
 $(BIN)/$(EXECUTABLE): $(MAINSOURCES)
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -I$(SRC) -L$(LIB) $^ -o $@ $(LIBRARIES)
