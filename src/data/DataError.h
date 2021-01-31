@@ -16,6 +16,6 @@ DataSubSystem::LOCATION{ 0 },
 DataSubSystem::ENTITY{ 1 },
 DataSubSystem::ITEM{ 2 };
 
-static constexpr ReturnCode DUPLICATE_CONNECTION = ReturnCode(System::DATA, DataSubSystem::LOCATION, 0x0001);
+static constexpr const ReturnCode DUPLICATE_CONNECTION = ReturnCode(System::DATA, DataSubSystem::LOCATION, 0x0001);
 
 #endif // DATAERROR_H

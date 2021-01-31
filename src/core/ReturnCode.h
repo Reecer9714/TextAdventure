@@ -17,37 +17,35 @@ enum class System : uint8_t
 
 struct SubSystem
 {
-    uint8_t code;
-    constexpr SubSystem(int y = 0) : code(y) {}
     constexpr operator uint8_t() const { return code; }
-};
-
-struct ErrorCode
-{
+    constexpr SubSystem(int i) : code(i) {}
+private:
     uint8_t code;
-    constexpr ErrorCode(int y = 0) : code(y) {}
-    constexpr operator uint8_t() const { return code; }
 };
 
 struct ReturnCode
 {
     System system;
     SubSystem subsystem = 0;
-    ErrorCode errorcode = 0;
+    uint8_t errorcode;
 
-    ReturnCode(System sys, ErrorCode code, std::string msg = "") : system(sys), errorcode(code)
+    constexpr ReturnCode(const System sys, const uint8_t code) : system(sys), errorcode(code)
     {
-        std::cout << Hash() << std::endl;
-        gErrorStrings.emplace(Hash(), msg);
+        // gErrorStrings.emplace(Hash(), msg);
     };
-    ReturnCode(System sys, SubSystem sub, ErrorCode code, std::string msg = "") : system(sys), subsystem(sub), errorcode(code)
+    constexpr ReturnCode(const System sys, const SubSystem sub, const uint8_t code) : system(sys), subsystem(sub), errorcode(code)
     {
-        gErrorStrings.emplace(Hash(), msg);
+        // gErrorStrings.emplace(Hash(), msg);
     };
 
     inline bool Success() const
     {
         return (int(errorcode) == 0);
+    };
+
+    inline bool Failed() const
+    {
+        return (int(errorcode) != 0);
     };
 
     inline uint32_t Hash() const
@@ -63,9 +61,9 @@ struct ReturnCode
     };
 };
 
-static constexpr ReturnCode SUCCESS = ReturnCode(System::COMMON, 0x0000, "Success");
-static constexpr ReturnCode NOT_IMPLEMENTED = ReturnCode(System::COMMON, 0x0001);
-static constexpr ReturnCode NULLPTR_INPUT = ReturnCode(System::COMMON, 0x0002);
+static constexpr const ReturnCode SUCCESS = ReturnCode(System::COMMON, 0x0000);
+static constexpr const ReturnCode NOT_IMPLEMENTED = ReturnCode(System::COMMON, 0x0001);
+static constexpr const ReturnCode NULLPTR_INPUT = ReturnCode(System::COMMON, 0x0002);
 
 
 #endif

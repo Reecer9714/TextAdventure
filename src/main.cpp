@@ -38,11 +38,8 @@ int main() {
 
     cout << state.currentLocation->getDesc() << endl;
     
-    while (state.running)
+    while( state.running )
     {
-
-    while( state.running ){
-
         getline( cin, input );
         // cout << input << endl;
         //Parse input
