@@ -77,9 +77,9 @@ struct ReturnCode
     }
 };
 
-static const ReturnCode SUCCESS = ReturnCode( System::COMMON, 0x0000, "Success" );
-static const ReturnCode NOT_IMPLEMENTED = ReturnCode( System::COMMON, 0x0001 );
-static const ReturnCode NULLPTR_INPUT = ReturnCode( System::COMMON, 0x0002 );
+static constexpr ReturnCode SUCCESS = ReturnCode( System::COMMON, 0x0000, "Success" );
+static constexpr ReturnCode NOT_IMPLEMENTED = ReturnCode( System::COMMON, 0x0001 );
+static constexpr ReturnCode NULLPTR_INPUT = ReturnCode( System::COMMON, 0x0002 );
 
 
 #endif
