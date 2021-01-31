@@ -4,26 +4,30 @@
 
 using namespace ::testing;
 
-class ActionPerformer_Test : public Test {
-    public:
-        ActionPerformer* af;
+class ActionPerformer_Test : public Test
+{
+public:
+    ActionPerformer* af;
 
-        void SetUp() override {
-            af = ActionPerformer::GetInstance();
-        }
+    void SetUp() override
+    {
+        af = ActionPerformer::GetInstance();
+    }
 
-        void TearDown() override {
-            delete af;
-            af = nullptr;
-        }
+    void TearDown() override
+    {
+        delete af;
+        af = nullptr;
+    }
 };
 
-TEST_F(ActionPerformer_Test, perform_QuitActionSuccess_ErrorCode) {
+TEST_F( ActionPerformer_Test, perform_QuitActionSuccess_ErrorCode )
+{
     GameState state;
 
-    ErrorCode ec = af->Perform(Verb::Quit, state);
+    ReturnCode ec = af->Perform( Verb::Quit, state );
 
-    EXPECT_EQ(ec, SUCCESS);
+    EXPECT_EQ( ec, SUCCESS );
 
-    EXPECT_EQ(state.running, false);
+    EXPECT_EQ( state.running, false );
 }
