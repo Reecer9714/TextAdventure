@@ -27,7 +27,7 @@ enum class Verb {
 
 class Action {
 public:
-    virtual ErrorCode Perform(GameState &state) = 0;
+    virtual ReturnCode Perform(GameState& state) = 0;
 };
 
 class ActionPerformer {
@@ -38,12 +38,12 @@ class ActionPerformer {
 public:
     static ActionPerformer* GetInstance();
 
-    ErrorCode Perform(Verb verb, GameState &state);
+    ReturnCode Perform(Verb verb, GameState& state);
 };
 
 class QuitAction : public Action {
 public:
-    virtual ErrorCode Perform(GameState &state) override;
+    virtual ReturnCode Perform(GameState& state) override;
 };
 
 #endif

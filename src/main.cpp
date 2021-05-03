@@ -10,9 +10,10 @@
 
 using namespace std;
 
-void parseInput(string input, vector<string> &tokens);
+void parseInput( string input, vector<string>& tokens );
 
-int main() {
+int main()
+{
     GameState state;
 
     Vocabulary vocab;
@@ -38,10 +39,8 @@ int main() {
 
     cout << state.currentLocation->getDesc() << endl;
     
-    ErrorCode ec;
-
-    while( state.running ){
-
+    while( state.running )
+    {
         getline( cin, input );
         // cout << input << endl;
         //Parse input
@@ -50,19 +49,23 @@ int main() {
         //Display state
         int wordCount = state.currentTokens.size();
         bool verbFound = false;
-        for( int i = 0; i < wordCount; i++ ){
+        for ( int i = 0; i < wordCount; i++ )
+        {
             Verb verb;
-            ec = vocab.GetVerb( state.currentTokens[ i ], verb );
-            if( ec == SUCCESS ) {
+            ReturnCode ec = vocab.GetVerb( state.currentTokens[i], verb );
+            if ( ec.Success() )
+            {
                 verbFound = true;
                 ec = af->Perform( verb, state );
-                if( ec != SUCCESS ) {
-                    cout << "Error: " << ec << endl;
+                if ( !ec.Success() )
+                {
+                    cout << "Error: " << ec.ToString() << endl;
                 }
             }
         }
 
-        if( !verbFound ){
+        if ( !verbFound )
+        {
             cout << "No Verb Found" << endl;
         }
     }
@@ -70,15 +73,18 @@ int main() {
     return 0;
 }
 
-void parseInput(string input, vector<string> &tokens) {
+void parseInput( string input, vector<string>& tokens )
+{
     tokens.clear();
-    if( input.length() ) {
+    if ( input.length() )
+    {
         input = tolowercase( trim( input ) );
         std::regex re( "\\s+" );
         std::sregex_token_iterator curToken( input.begin(), input.end(), re, -1 );
         std::sregex_token_iterator endOfTokens;
 
-        for( ; curToken != endOfTokens; ++curToken ) {
+        for ( ; curToken != endOfTokens; ++curToken )
+        {
             tokens.push_back( curToken->str() );
         }
     }

@@ -5,14 +5,13 @@
 #include <list>
 #include <unordered_map>
 
-#include "core/ReturnCode.h"
+#include "DataError.h"
 #include "Entity.h"
 
 #define NUM_OF_DIRECTIONS 10
 
-#define DUPLICATE_CONNECTION 110
-
-enum Direction {
+enum Direction
+{
     NORTH,
     SOUTH,
     EAST,
@@ -25,7 +24,8 @@ enum Direction {
     DOWN
 };
 
-enum ExitStatus { //separate
+enum ExitStatus
+{ //separate
     NO_EXIT,
     OPEN,
     CLOSED,
@@ -34,14 +34,16 @@ enum ExitStatus { //separate
 
 class Location;
 
-struct Connection {
+struct Connection
+{
     Location* loc = nullptr;
     ExitStatus status = OPEN;
     bool visible = false;
     bool connected = false;
 };
 
-class Location {
+class Location
+{
     std::string name;
     std::string description;
     Connection exits[NUM_OF_DIRECTIONS];
@@ -58,9 +60,9 @@ public:
     Connection* getExits();
     std::list<Entity*> getEntities();
 
-    ErrorCode connectLocation(Direction d, Location *other, ExitStatus s = OPEN, bool visible = true);
+    ReturnCode connectLocation(Direction d, Location* other, ExitStatus s = OPEN, bool visible = true);
     void disconnectLocation(Direction d);
-    
+
     void addEntity(Entity* e);
     void removeEntity(Entity* e);
 

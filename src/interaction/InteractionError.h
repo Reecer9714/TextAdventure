@@ -1,0 +1,18 @@
+#ifndef INTERACTIONERROR_H
+#define INTERACTIONERROR_H
+
+#include "core/ReturnCode.h"
+
+struct InteractionSubSystem : public SubSystem
+{
+    constexpr InteractionSubSystem(uint8_t n): SubSystem(n) {};
+    static const InteractionSubSystem VOCAB;
+};
+
+constexpr const InteractionSubSystem
+    InteractionSubSystem::VOCAB{ 0 };
+
+static constexpr const ReturnCode FAILED_MATCH_VERB = ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0001);
+static constexpr const ReturnCode DUPLICATE_WORD = ReturnCode(System::INTERACTION, InteractionSubSystem::VOCAB, 0x0002);
+
+#endif
