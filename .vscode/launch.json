@@ -5,7 +5,7 @@
             "name": "C++ Test Debug (gdb)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/test",
+            "program": "${workspaceFolder}/build/gtest",
             "preLaunchTask": "Build & test C++ project",
             "args": [], //"<test.txt" was used for an auto input
             "stopAtEntry": false,
@@ -27,7 +27,7 @@
             "name": "C++ Debug (gdb)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/main",
+            "program": "${workspaceFolder}/build/main",
             "preLaunchTask": "Build C++ project",
             "args": [],
             "stopAtEntry": false,

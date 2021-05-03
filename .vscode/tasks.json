@@ -9,51 +9,6 @@
                 "--version"
             ],
             "problemMatcher": []
-        },
-        {
-            "label": "Build C++ project",
-            "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "command": "make",
-            "problemMatcher": {
-                "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "pattern": {
-                  "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                  "file": 1,
-                  "line": 2,
-                  "column": 3,
-                  "severity": 4,
-                  "message": 5
-                }
-              }
-        },
-        {
-            "label": "Build & run C++ project",
-            "type": "shell",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "command": "make",
-            "args": [
-                "run"
-            ]
-        },
-        {
-            "label": "Build & test C++ project",
-            "type": "shell",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "command": "make",
-            "args": [
-                "test"
-            ]
         }
     ]
 }
