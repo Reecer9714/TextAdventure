@@ -74,7 +74,16 @@
 			"xlocmes": "cpp",
 			"xlocmon": "cpp",
 			"xloctime": "cpp",
-			"xtree": "cpp"
+			"xtree": "cpp",
+			"array": "cpp",
+			"*.tcc": "cpp",
+			"bitset": "cpp",
+			"clocale": "cpp",
+			"cstdarg": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"memory_resource": "cpp",
+			"string_view": "cpp"
 		},
 		"terminal.integrated.shell.windows": "cmd.exe",
 		"C_Cpp.formatting": "vcFormat",
