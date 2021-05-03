@@ -45,14 +45,14 @@ struct ReturnCode
 
     inline bool Failed() const
     {
-        return (int(errorcode) != 0);
+        return ( int( errorcode ) != 0 );
     };
 
     inline constexpr uint32_t Hash() 
     {
-        return ( static_cast<uint8_t>( system ) << 16 ) +
-            ( int( subsystem ) << 8 ) +
-            ( int( errorcode ) );
+        return  ( static_cast<uint8_t>( system )    << 16 ) +
+                ( static_cast<uint8_t>( subsystem ) << 8 ) +
+                ( static_cast<uint8_t>( errorcode ) );
     };
 
     inline std::string ToString() const
