@@ -18,7 +18,7 @@ enum class System : uint8_t
 struct SubSystem
 {
     constexpr operator uint8_t() const { return code; }
-    constexpr SubSystem(int i) : code(i) {}
+    constexpr explicit SubSystem(uint8_t i) : code(i) {}
 private:
     uint8_t code;
 };
@@ -26,16 +26,16 @@ private:
 struct ReturnCode
 {
     System system;
-    SubSystem subsystem = 0;
+    SubSystem subsystem{ 0 };
     uint8_t errorcode;
+    uint32_t hash;
 
-    constexpr ReturnCode(const System sys, const uint8_t code) : system(sys), errorcode(code)
+    constexpr ReturnCode(const System sys, const uint8_t code) : system(sys), errorcode(code), hash(Hash())
     {
-        // gErrorStrings.emplace(Hash(), msg);
     };
-    constexpr ReturnCode(const System sys, const SubSystem sub, const uint8_t code) : system(sys), subsystem(sub), errorcode(code)
+    
+    constexpr ReturnCode(const System sys, const SubSystem sub, const uint8_t code) : system(sys), subsystem(sub), errorcode(code), hash(Hash())
     {
-        // gErrorStrings.emplace(Hash(), msg);
     };
 
     inline bool Success() const
@@ -48,7 +48,7 @@ struct ReturnCode
         return (int(errorcode) != 0);
     };
 
-    inline uint32_t Hash() const
+    inline constexpr uint32_t Hash() 
     {
         return ( static_cast<uint8_t>( system ) << 16 ) +
             ( int( subsystem ) << 8 ) +
@@ -57,7 +57,7 @@ struct ReturnCode
 
     inline std::string ToString() const
     {
-        return gErrorStrings.find( Hash() )->second;
+        return gErrorStrings.find( hash )->second;
     };
 
     inline bool operator==( const ReturnCode& rhs ) const

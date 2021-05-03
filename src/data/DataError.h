@@ -5,6 +5,7 @@
 
 struct DataSubSystem : public SubSystem
 {
+    constexpr DataSubSystem(uint8_t n): SubSystem(n) {};
     static const DataSubSystem
         LOCATION,
         ENTITY,
