@@ -1,15 +1,12 @@
 #include "Location.h"
 
-Location::Location(std::string name, std::string desc)
+#include <cstddef>
+
+Location::Location( std::string name, std::string desc )
 {
     this->name = name;
     this->description = desc;
 };
-
-Location::~Location()
-{
-    //delete[] this->exits;
-}
 
 std::string Location::getName()
 {
@@ -21,9 +18,9 @@ std::string Location::getDesc()
     return this->description;
 };
 
-Connection* Location::getExits()
+std::array<Connection, NUM_OF_DIRECTIONS>* Location::getExits()
 {
-    return this->exits;
+    return &exits;
 };
 
 std::list<Entity*> Location::getEntities()
@@ -31,36 +28,38 @@ std::list<Entity*> Location::getEntities()
     return this->entities;
 };
 
-ReturnCode Location::connectLocation(Direction d, Location* other, ExitStatus s, bool visible)
+ReturnCode Location::connectLocation( Direction d, Location* other, ExitStatus s, bool visible )
 {
-    if (other == nullptr)
+    if( other == nullptr )
     {
         return NULLPTR_INPUT;
     }
 
-    if (this->exits[d].connected)
+    std::array<Connection, NUM_OF_DIRECTIONS>::reference connection = this->exits.at( d );
+
+    if( connection.connected )
     {
         return DUPLICATE_CONNECTION;
     }
 
-    this->exits[d].loc = other;
-    this->exits[d].status = s;
-    this->exits[d].visible = visible;
-    this->exits[d].connected = true;
+    connection.loc = other;
+    connection.status = s;
+    connection.visible = visible;
+    connection.connected = true;
     return SUCCESS;
 };
 
-void Location::disconnectLocation(Direction d)
+void Location::disconnectLocation( Direction d )
 {
-    this->exits[d].connected = false;
+    this->exits.at( d ).connected = false;
 };
 
-void Location::addEntity(Entity* e)
+void Location::addEntity( Entity* e )
 {
-    this->entities.push_back(e);
+    this->entities.push_back( e );
 };
 
-void Location::removeEntity(Entity* e)
+void Location::removeEntity( Entity* e )
 {
-    this->entities.remove(e);
+    this->entities.remove( e );
 };

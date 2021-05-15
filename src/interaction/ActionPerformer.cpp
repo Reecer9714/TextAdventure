@@ -1,32 +1,38 @@
 #include "ActionPerformer.h"
 
-ReturnCode QuitAction::Perform(GameState& state)
+#include <memory>
+
+ReturnCode QuitAction::Perform( GameState& state )
 {
     state.running = false;
     return SUCCESS;
 };
 
-ActionPerformer* ActionPerformer::inst = nullptr;
+std::shared_ptr<ActionPerformer> ActionPerformer::inst = nullptr;
 
-ActionPerformer::ActionPerformer() {
-    this->actions.emplace(Verb::Quit, new QuitAction());
+ActionPerformer::ActionPerformer()
+{
+    this->actions.emplace( Verb::Quit, new QuitAction() );
 };
 
-ActionPerformer* ActionPerformer::GetInstance() {
-    if( inst == nullptr ){
-        inst = new ActionPerformer();
+std::shared_ptr<ActionPerformer> ActionPerformer::GetInstance()
+{
+    if( inst == nullptr )
+    {
+        inst = std::make_shared<ActionPerformer>();
     }
 
     return inst;
 };
 
-ReturnCode ActionPerformer::Perform(Verb verb, GameState& ref)
+ReturnCode ActionPerformer::Perform( Verb verb, GameState& state )
 {
-    std::unordered_map<Verb, Action*>::const_iterator match = this->actions.find(verb);
-    
-    if( match != this->actions.end() ) {
-        return this->actions.find(verb)->second->Perform(ref);
+    std::unordered_map<Verb, Action*>::const_iterator match = this->actions.find( verb );
+
+    if( match != this->actions.end() )
+    {
+        return this->actions.find( verb )->second->Perform( state );
     }
-    
+
     return NOT_IMPLEMENTED;
 };

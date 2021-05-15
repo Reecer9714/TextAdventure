@@ -1,14 +1,15 @@
 #ifndef Location_H
 #define Location_H
 
-#include <string>
+#include <cstddef>
 #include <list>
+#include <string>
 #include <unordered_map>
 
 #include "DataError.h"
 #include "Entity.h"
 
-#define NUM_OF_DIRECTIONS 10
+constexpr size_t NUM_OF_DIRECTIONS = 10;
 
 enum Direction
 {
@@ -25,7 +26,7 @@ enum Direction
 };
 
 enum ExitStatus
-{ //separate
+{ // separate
     NO_EXIT,
     OPEN,
     CLOSED,
@@ -44,30 +45,28 @@ struct Connection
 
 class Location
 {
-    std::string name;
-    std::string description;
-    Connection exits[NUM_OF_DIRECTIONS];
-    std::list<Entity*> entities;
-
 public:
-
-    Location(std::string name, std::string desc);
-
-    ~Location();
+    Location( std::string name, std::string desc );
 
     std::string getName();
     std::string getDesc();
-    Connection* getExits();
+    std::array<Connection, NUM_OF_DIRECTIONS>* getExits();
     std::list<Entity*> getEntities();
 
-    ReturnCode connectLocation(Direction d, Location* other, ExitStatus s = OPEN, bool visible = true);
-    void disconnectLocation(Direction d);
+    ReturnCode connectLocation( Direction d,
+                                Location* other,
+                                ExitStatus s = OPEN,
+                                bool visible = true );
+    void disconnectLocation( Direction d );
 
-    void addEntity(Entity* e);
-    void removeEntity(Entity* e);
+    void addEntity( Entity* e );
+    void removeEntity( Entity* e );
 
 private:
-    Location();
+    std::string name;
+    std::string description;
+    std::array<Connection, NUM_OF_DIRECTIONS> exits;
+    std::list<Entity*> entities;
 };
 
 #endif

@@ -1,12 +1,15 @@
 #ifndef ACTION_H
 #define ACTION_H
 
-#include "core/ReturnCode.h"
+#include <memory>
+
 #include "core/GameState.h"
+#include "core/ReturnCode.h"
 #include "data/Entity.h"
 #include "data/Location.h"
 
-enum class Verb {
+enum class Verb
+{
     Quit,
     Move,
     Look,
@@ -25,25 +28,30 @@ enum class Verb {
     Inventory
 };
 
-class Action {
+class Action
+{
 public:
-    virtual ReturnCode Perform(GameState& state) = 0;
+    virtual ReturnCode Perform( GameState& state ) = 0;
 };
 
-class ActionPerformer {
+class ActionPerformer
+{
+public:
+    static std::shared_ptr<ActionPerformer> GetInstance();
+
+    ReturnCode Perform( Verb verb, GameState& state );
+
+private:
     ActionPerformer();
-    static ActionPerformer* inst;
+    static std::shared_ptr<ActionPerformer> inst;
 
     std::unordered_map<Verb, Action*> actions;
-public:
-    static ActionPerformer* GetInstance();
-
-    ReturnCode Perform(Verb verb, GameState& state);
 };
 
-class QuitAction : public Action {
+class QuitAction : public Action
+{
 public:
-    virtual ReturnCode Perform(GameState& state) override;
+    ReturnCode Perform( GameState& state ) override;
 };
 
 #endif

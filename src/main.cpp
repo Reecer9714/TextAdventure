@@ -1,12 +1,13 @@
+#include <cstddef>
 #include <iostream>
 #include <regex>
 
-#include "core/stringutils.h"
 #include "core/GameState.h"
-#include "interaction/Vocabulary.h"
-#include "interaction/ActionPerformer.h"
-#include "data/Location.h"
+#include "core/stringutils.h"
 #include "data/Entity.h"
+#include "data/Location.h"
+#include "interaction/ActionPerformer.h"
+#include "interaction/Vocabulary.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ int main()
 
     Vocabulary vocab;
 
-    ActionPerformer* af = ActionPerformer::GetInstance();
+    std::shared_ptr<ActionPerformer> af = ActionPerformer::GetInstance();
 
     vocab.AddWord( "quit", Verb::Quit );
     vocab.AddWord( "q", Verb::Quit );
@@ -38,33 +39,33 @@ int main()
     string input;
 
     cout << state.currentLocation->getDesc() << endl;
-    
+
     while( state.running )
     {
         getline( cin, input );
         // cout << input << endl;
-        //Parse input
+        // Parse input
         parseInput( input, state.currentTokens );
-        //Change state
-        //Display state
-        int wordCount = state.currentTokens.size();
+        // Change state
+        // Display state
+        size_t wordCount = state.currentTokens.size();
         bool verbFound = false;
-        for ( int i = 0; i < wordCount; i++ )
+        for( size_t i = 0; i < wordCount; i++ )
         {
             Verb verb;
-            ReturnCode ec = vocab.GetVerb( state.currentTokens[i], verb );
-            if ( ec.Success() )
+            ReturnCode ec = vocab.GetVerb( state.currentTokens[ i ], verb );
+            if( ec.Success() )
             {
                 verbFound = true;
                 ec = af->Perform( verb, state );
-                if ( !ec.Success() )
+                if( !ec.Success() )
                 {
                     cout << "Error: " << ec.ToString() << endl;
                 }
             }
         }
 
-        if ( !verbFound )
+        if( !verbFound )
         {
             cout << "No Verb Found" << endl;
         }
@@ -76,14 +77,14 @@ int main()
 void parseInput( string input, vector<string>& tokens )
 {
     tokens.clear();
-    if ( input.length() )
+    if( input.length() != 0 )
     {
         input = tolowercase( trim( input ) );
         std::regex re( "\\s+" );
         std::sregex_token_iterator curToken( input.begin(), input.end(), re, -1 );
         std::sregex_token_iterator endOfTokens;
 
-        for ( ; curToken != endOfTokens; ++curToken )
+        for( ; curToken != endOfTokens; ++curToken )
         {
             tokens.push_back( curToken->str() );
         }

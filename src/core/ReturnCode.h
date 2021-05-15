@@ -8,7 +8,7 @@
 
 static std::map<uint32_t, std::string> gErrorStrings;
 
-constexpr size_t SYSTEM_OFFSET    = 16;
+constexpr size_t SYSTEM_OFFSET = 16;
 constexpr size_t SUBSYSTEM_OFFSET = 8;
 
 enum class System : uint8_t
@@ -33,10 +33,10 @@ private:
 
 struct ReturnCode
 {
-    System    system;
+    System system;
     SubSystem subsystem{ 0 };
-    uint8_t   errorcode;
-    uint32_t  hash;
+    uint8_t errorcode;
+    uint32_t hash;
 
     constexpr ReturnCode( const System sys, const uint8_t code )
         : system( sys )
@@ -68,8 +68,8 @@ struct ReturnCode
     }
 };
 
-static constexpr const ReturnCode SUCCESS         = ReturnCode( System::COMMON, 0x0000 );
+static constexpr const ReturnCode SUCCESS = ReturnCode( System::COMMON, 0x0000 );
 static constexpr const ReturnCode NOT_IMPLEMENTED = ReturnCode( System::COMMON, 0x0001 );
-static constexpr const ReturnCode NULLPTR_INPUT   = ReturnCode( System::COMMON, 0x0002 );
+static constexpr const ReturnCode NULLPTR_INPUT = ReturnCode( System::COMMON, 0x0002 );
 
 #endif
