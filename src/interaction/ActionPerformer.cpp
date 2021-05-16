@@ -8,26 +8,22 @@ ReturnCode QuitAction::Perform( GameState& state )
     return SUCCESS;
 };
 
-std::shared_ptr<ActionPerformer> ActionPerformer::inst = nullptr;
+const std::shared_ptr<ActionPerformer> ActionPerformer::inst{ new ActionPerformer() };
 
 ActionPerformer::ActionPerformer()
 {
-    this->actions.emplace( Verb::Quit, new QuitAction() );
+    this->actions.emplace( Verb::Quit, std::make_unique<QuitAction>() );
 };
 
 std::shared_ptr<ActionPerformer> ActionPerformer::GetInstance()
 {
-    if( inst == nullptr )
-    {
-        inst = std::make_shared<ActionPerformer>();
-    }
-
     return inst;
 };
 
 ReturnCode ActionPerformer::Perform( Verb verb, GameState& state )
 {
-    std::unordered_map<Verb, Action*>::const_iterator match = this->actions.find( verb );
+    std::unordered_map<Verb, std::unique_ptr<Action>>::const_iterator match =
+        this->actions.find( verb );
 
     if( match != this->actions.end() )
     {

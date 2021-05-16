@@ -43,9 +43,9 @@ public:
 
 private:
     ActionPerformer();
-    static std::shared_ptr<ActionPerformer> inst;
+    static const std::shared_ptr<ActionPerformer> inst;
 
-    std::unordered_map<Verb, Action*> actions;
+    std::unordered_map<Verb, std::unique_ptr<Action>> actions;
 };
 
 class QuitAction : public Action
