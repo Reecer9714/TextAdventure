@@ -3,8 +3,7 @@
 
 #include "core/ReturnCode.h"
 
-constexpr const char* const LocationMessages[ 2 ] = { "Duplicate Connection",
-                                                      "Unknown Connections" };
+constexpr const std::array<const char*, 1> LocationMessages = { "Duplicate Connection" };
 
 struct DataSubSystem : public SubSystem
 {
@@ -13,7 +12,9 @@ struct DataSubSystem : public SubSystem
     static const DataSubSystem LOCATION, ENTITY, ITEM;
 };
 
-inline constexpr const DataSubSystem DataSubSystem::LOCATION{ 0ul, { 1, LocationMessages } },
+inline constexpr const DataSubSystem DataSubSystem::LOCATION{
+    0, CastErrorMessageArray( LocationMessages )
+},
     DataSubSystem::ENTITY{ 1 }, DataSubSystem::ITEM{ 2 };
 
 static constexpr const ReturnCode DUPLICATE_CONNECTION =

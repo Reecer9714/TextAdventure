@@ -13,6 +13,10 @@ constexpr size_t SUBSYSTEM_OFFSET = 8;
 constexpr const char* const DEFAULT_ERROR_MESSAGE = "Unknown Error: ";
 
 using ErrorMessageArray = std::pair<size_t, const char* const*>;
+#define CastErrorMessageArray( array )     \
+    {                                      \
+        ( array ).size(), ( array ).data() \
+    }
 
 enum class System : uint8_t
 {
