@@ -1,5 +1,4 @@
 #include "GTest/gtest.h"
-
 #include <data/Location.h>
 
 using namespace ::testing;
@@ -54,7 +53,7 @@ TEST_F( Location_Test, connectLocation_ConnectedSuccess_int )
     ReturnCode ret = intro->connectLocation( WEST, west );
     EXPECT_EQ( ret, SUCCESS );
 
-    bool connected = intro->getExits()[WEST].connected;
+    bool connected = intro->getExits()->at( WEST ).connected;
 
     EXPECT_EQ( connected, true );
 };
@@ -65,7 +64,7 @@ TEST_F( Location_Test, connectLocation_StatusSuccess_int )
     ReturnCode ret = intro->connectLocation( WEST, west, CLOSED );
     EXPECT_EQ( ret, SUCCESS );
 
-    ExitStatus status = intro->getExits()[WEST].status;
+    ExitStatus status = intro->getExits()->at( WEST ).status;
 
     EXPECT_EQ( status, CLOSED );
 };
@@ -76,7 +75,7 @@ TEST_F( Location_Test, connectLocation_VisibleSuccess_int )
     ReturnCode ret = intro->connectLocation( WEST, west, CLOSED, false );
     EXPECT_EQ( ret, SUCCESS );
 
-    bool visible = intro->getExits()[WEST].visible;
+    bool visible = intro->getExits()->at( WEST ).visible;
 
     EXPECT_EQ( visible, false );
 };
@@ -85,7 +84,7 @@ TEST_F( Location_Test, disconnectLocation_Success_void )
 {
     intro->disconnectLocation( WEST );
 
-    bool connected = intro->getExits()[WEST].connected;
+    bool connected = intro->getExits()->at( WEST ).connected;
 
     EXPECT_EQ( connected, false );
 };
@@ -96,7 +95,7 @@ TEST_F( Location_Test, disconnectLocation_CleanDisconnect_void )
     EXPECT_EQ( retConnectWest, SUCCESS );
 
     intro->disconnectLocation( WEST );
-    bool connected = intro->getExits()[WEST].connected;
+    bool connected = intro->getExits()->at( WEST ).connected;
     EXPECT_EQ( connected, false );
 
     ReturnCode retConnectWest2 = intro->connectLocation( WEST, west2, CLOSED, false );
@@ -108,8 +107,10 @@ TEST_F( Location_Test, disconnectLocation_CleanDisconnect_void )
     expected.visible = false;
     expected.connected = true;
 
-    EXPECT_EQ( intro->getExits()[WEST].loc, expected.loc );
-    EXPECT_EQ( intro->getExits()[WEST].status, expected.status );
-    EXPECT_EQ( intro->getExits()[WEST].visible, expected.visible );
-    EXPECT_EQ( intro->getExits()[WEST].connected, expected.connected );
+    Connection returned = intro->getExits()->at( WEST );
+
+    EXPECT_EQ( returned.loc, expected.loc );
+    EXPECT_EQ( returned.status, expected.status );
+    EXPECT_EQ( returned.visible, expected.visible );
+    EXPECT_EQ( returned.connected, expected.connected );
 };

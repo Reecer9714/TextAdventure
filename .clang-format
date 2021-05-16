@@ -3,8 +3,8 @@ Language:        Cpp
 BasedOnStyle:  Microsoft
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: None
-AlignConsecutiveDeclarations: None
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 AlignConsecutiveMacros: false
 AlignEscapedNewlines: Left
 AlignOperands:   true
@@ -62,7 +62,7 @@ DerivePointerAlignment: false
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
-EmptyLineBeforeAccessModifier: LogicalBlock
+# EmptyLineBeforeAccessModifier: LogicalBlock
 ForEachMacros:
   - foreach
   - Q_FOREACH
@@ -132,8 +132,6 @@ Standard:        Latest
 StatementMacros:
   - Q_UNUSED
   - QT_REQUIRE_VERSION
-AttributeMacros:
-  - ENUM
 TabWidth:        4
 UseCRLF:         false
 UseTab:          Never
