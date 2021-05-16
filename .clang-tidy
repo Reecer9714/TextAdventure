@@ -1,5 +1,9 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*,-readability-uppercase-literal-suffix'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*
+  ,-readability-uppercase-literal-suffix
+  ,-cppcoreguidelines-avoid-c-arrays
+  ,-cppcoreguidelines-owning-memory
+  ,-cppcoreguidelines-pro-bounds-array-to-pointer-decay'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
