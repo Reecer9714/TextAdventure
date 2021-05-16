@@ -31,6 +31,8 @@ enum class Verb
 class Action
 {
 public:
+    virtual ~Action() = default;
+
     virtual ReturnCode Perform( GameState& state ) = 0;
 };
 

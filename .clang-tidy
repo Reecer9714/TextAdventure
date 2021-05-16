@@ -1,7 +1,22 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*
+Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*,performance-*,
+  hicpp-multiway-paths-covered,
+  google-build-namespaces,
+  google-global-names-in-headers,
+  google-readability-casting,
+  google-runtime-int,
+  modernize-loop-convert,
+  modernize-use-auto,
+  modernize-use-default-member-init,
+  modernize-use-emplace,
+  modernize-use-equals-default,
+  modernize-use-using,
+  misc-redundant-expression,
+  misc-unused-parameters
   ,-readability-uppercase-literal-suffix
+  ,-hicpp-uppercase-literal-suffix
   ,-cppcoreguidelines-avoid-c-arrays
+  ,-modernize-avoid-c-arrays
   ,-cppcoreguidelines-owning-memory
   ,-cppcoreguidelines-pro-bounds-array-to-pointer-decay'
 WarningsAsErrors: ''
@@ -10,6 +25,8 @@ AnalyzeTemporaryDtors: false
 FormatStyle:     none
 User:            reece
 CheckOptions:
+  - key:             cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value:           true
   - key:             cert-dcl16-c.NewSuffixes
     value:           'L;LL;LU;LLU'
   - key:             cert-oop54-cpp.WarnOnlyIfThisHasSuspiciousField

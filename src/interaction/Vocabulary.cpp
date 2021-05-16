@@ -1,8 +1,8 @@
 #include "Vocabulary.h"
 
-ReturnCode Vocabulary::GetVerb( std::string word, Verb& verb )
+ReturnCode Vocabulary::GetVerb( const std::string& word, Verb& verb )
 {
-    VocabList::iterator match = vocab.find( word );
+    auto match = vocab.find( word );
     if( match == vocab.end() )
     {
         return FAILED_MATCH_VERB;
@@ -14,7 +14,7 @@ ReturnCode Vocabulary::GetVerb( std::string word, Verb& verb )
 
 ReturnCode Vocabulary::AddWord( std::string word, Verb verb )
 {
-    std::pair<VocabList::iterator, bool> ret = this->vocab.emplace( tolowercase( word ), verb );
+    auto ret = this->vocab.emplace( tolowercase( word ), verb );
     if( !ret.second )
     {
         return DUPLICATE_WORD;

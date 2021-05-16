@@ -1,12 +1,11 @@
 #include "Location.h"
 
 #include <cstddef>
+#include <utility>
 
 Location::Location( std::string name, std::string desc )
-{
-    this->name = name;
-    this->description = desc;
-};
+    : name( std::move( name ) )
+    , description( std::move( desc ) ){};
 
 std::string Location::getName()
 {

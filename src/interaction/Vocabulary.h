@@ -11,16 +11,14 @@
 
 class Vocabulary
 {
-    typedef std::unordered_map<std::string, Verb> VocabList;
-
 public:
     // Finds a verb that is mapped to the word
-    ReturnCode GetVerb( std::string word, Verb& verb );
+    ReturnCode GetVerb( const std::string& word, Verb& verb );
 
     ReturnCode AddWord( std::string word, Verb verb );
 
 private:
-    VocabList vocab;
+    std::unordered_map<std::string, Verb> vocab;
 };
 
 #endif

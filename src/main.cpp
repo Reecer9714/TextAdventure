@@ -25,10 +25,10 @@ int main()
     vocab.AddWord( "q", Verb::Quit );
     vocab.AddWord( "exit", Verb::Quit );
 
-    Location* intro = new Location( "Intro", "This is the intro room yay!!" );
-    Location* northRoom = new Location( "North Room", "This is the to the North" );
-    Location* seRoom = new Location( "SE Room", "This is the room to the SE" );
-    Location* basement = new Location( "Basement", "This is the creepy basement" );
+    auto* intro = new Location( "Intro", "This is the intro room yay!!" );
+    auto* northRoom = new Location( "North Room", "This is the to the North" );
+    auto* seRoom = new Location( "SE Room", "This is the room to the SE" );
+    auto* basement = new Location( "Basement", "This is the creepy basement" );
 
     intro->connectLocation( NORTH, northRoom );
     intro->connectLocation( SE, seRoom );

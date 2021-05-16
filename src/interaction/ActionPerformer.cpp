@@ -22,8 +22,7 @@ std::shared_ptr<ActionPerformer> ActionPerformer::GetInstance()
 
 ReturnCode ActionPerformer::Perform( Verb verb, GameState& state )
 {
-    std::unordered_map<Verb, std::unique_ptr<Action>>::const_iterator match =
-        this->actions.find( verb );
+    auto match = this->actions.find( verb );
 
     if( match != this->actions.end() )
     {

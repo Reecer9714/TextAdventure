@@ -12,7 +12,7 @@ constexpr size_t SYSTEM_OFFSET = 16;
 constexpr size_t SUBSYSTEM_OFFSET = 8;
 constexpr const char* const DEFAULT_ERROR_MESSAGE = "Unknown Error: ";
 
-typedef std::pair<size_t, const char* const*> ErrorMessageArray;
+using ErrorMessageArray = std::pair<size_t, const char* const*>;
 
 enum class System : uint8_t
 {
