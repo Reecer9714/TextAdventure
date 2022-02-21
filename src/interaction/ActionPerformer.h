@@ -3,30 +3,11 @@
 
 #include <memory>
 
+#include "Verb.h"
 #include "core/GameState.h"
 #include "core/ReturnCode.h"
 #include "data/Entity.h"
 #include "data/Location.h"
-
-enum class Verb
-{
-    Quit,
-    Move,
-    Look,
-    Open,
-    Close,
-    Lock,
-    Unlock,
-    Equip,
-    Grab,
-    Buy,
-    Sell,
-    List,
-    Attack,
-    Stealth,
-    Steal,
-    Inventory
-};
 
 class Action
 {
@@ -51,6 +32,12 @@ private:
 };
 
 class QuitAction : public Action
+{
+public:
+    ReturnCode Perform( GameState& state ) override;
+};
+
+class MoveAction : public Action
 {
 public:
     ReturnCode Perform( GameState& state ) override;

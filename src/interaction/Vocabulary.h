@@ -17,6 +17,8 @@ public:
 
     ReturnCode AddWord( std::string word, Verb verb );
 
+    ReturnCode LoadFromFile( const std::string& file );
+
 private:
     std::unordered_map<std::string, Verb> vocab;
 };

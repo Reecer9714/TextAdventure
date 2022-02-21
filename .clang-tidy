@@ -1,5 +1,6 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*,performance-*,
+Checks: 
+  'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,readability-*,performance-*,
   hicpp-multiway-paths-covered,
   google-build-namespaces,
   google-global-names-in-headers,
@@ -15,12 +16,13 @@ Checks:          'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelin
   misc-unused-parameters
   ,-readability-uppercase-literal-suffix
   ,-hicpp-uppercase-literal-suffix
-  ,-cppcoreguidelines-avoid-c-arrays
+  ,-cppcoreguidelines-avoid-c-*
   ,-modernize-avoid-c-arrays
-  ,-cppcoreguidelines-owning-memory
+  ,-cppcoreguidelines-owning-*
   ,-cppcoreguidelines-pro-bounds-array-to-pointer-decay'
 WarningsAsErrors: ''
-HeaderFilterRegex: ''
+HeaderFilterRegex: '[gtest|gmock]'
+FilterMacroFromHeaders: true # Not accepted yet in clang source
 AnalyzeTemporaryDtors: false
 FormatStyle:     none
 User:            reece

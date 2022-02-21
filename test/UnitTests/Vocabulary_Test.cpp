@@ -1,5 +1,4 @@
 #include "GTest/gtest.h"
-
 #include <interaction/Vocabulary.h>
 
 using namespace ::testing;

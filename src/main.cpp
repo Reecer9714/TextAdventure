@@ -15,33 +15,38 @@ void parseInput( string input, vector<string>& tokens );
 
 int main()
 {
+    ReturnCode rc = SUCCESS;
     GameState state;
 
     Vocabulary vocab;
 
     std::shared_ptr<ActionPerformer> af = ActionPerformer::GetInstance();
 
-    vocab.AddWord( "quit", Verb::Quit );
-    vocab.AddWord( "q", Verb::Quit );
-    vocab.AddWord( "exit", Verb::Quit );
+    rc = vocab.LoadFromFile( "./data/verbs.txt" );
 
-    auto* intro = new Location( "Intro", "This is the intro room yay!!" );
-    auto* northRoom = new Location( "North Room", "This is the to the North" );
-    auto* seRoom = new Location( "SE Room", "This is the room to the SE" );
-    auto* basement = new Location( "Basement", "This is the creepy basement" );
+    if( rc.Success() )
+    {
+        auto* intro = new Location( "Intro", "This is the intro room yay!!" );
+        auto* northRoom = new Location( "North Room", "This is the room to the North" );
+        auto* seRoom = new Location( "SE Room", "This is the room to the SE" );
+        auto* basement = new Location( "Basement", "This is the creepy basement" );
 
-    intro->connectLocation( NORTH, northRoom );
-    intro->connectLocation( SE, seRoom );
-    intro->connectLocation( DOWN, basement );
+        intro->connectBothLocations( NORTH, northRoom );
+        intro->connectBothLocations( SE, seRoom );
+        intro->connectBothLocations( DOWN, basement );
 
-    state.currentLocation = intro;
+        state.currentLocation = intro;
+    }
 
-    string input;
-
-    cout << state.currentLocation->getDesc() << endl;
+    if( rc.Success() )
+    {
+        state.running = true;
+    }
 
     while( state.running )
     {
+        string input;
+        cout << state.currentLocation->getDesc() << endl;
         getline( cin, input );
         // cout << input << endl;
         // Parse input
@@ -50,17 +55,17 @@ int main()
         // Display state
         size_t wordCount = state.currentTokens.size();
         bool verbFound = false;
-        for( size_t i = 0; i < wordCount; i++ )
+        for( state.tokenLocation = 0; state.tokenLocation < wordCount; state.tokenLocation++ )
         {
             Verb verb;
-            ReturnCode ec = vocab.GetVerb( state.currentTokens[ i ], verb );
-            if( ec.Success() )
+            state.code = vocab.GetVerb( state.currentTokens[ state.tokenLocation ], verb );
+            if( state.code.Success() )
             {
                 verbFound = true;
-                ec = af->Perform( verb, state );
-                if( !ec.Success() )
+                state.code = af->Perform( verb, state );
+                if( !state.code.Success() )
                 {
-                    cout << "Error: " << ec.ToString() << endl;
+                    cout << "Error: " << state.code.ToString() << endl;
                 }
             }
         }
@@ -69,6 +74,16 @@ int main()
         {
             cout << "No Verb Found" << endl;
         }
+    }
+
+    if( rc.Success() && state.code.Failed() )
+    {
+        rc = state.code;
+    }
+
+    if( !rc.Success() )
+    {
+        cout << "Exit Error: " << rc.ToString() << endl;
     }
 
     return 0;

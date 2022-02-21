@@ -15,6 +15,9 @@ include_directories(src)
 file(GLOB SRC_FILES src/**/*.cpp)
 add_executable( main src/main.cpp ${SRC_FILES} )
 
+# data files
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 # tests
 include(GoogleTest)
 file(GLOB TEST_FILES test/**/*.cpp)

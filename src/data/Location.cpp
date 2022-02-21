@@ -1,7 +1,9 @@
 #include "Location.h"
 
-#include <cstddef>
-#include <utility>
+#include "DataError.h"
+#include "core/GlobalError.h"
+#include "core/ReturnCode.h"
+#include "data/Direction.h"
 
 Location::Location( std::string name, std::string desc )
     : name( std::move( name ) )
@@ -25,6 +27,20 @@ std::array<Connection, NUM_OF_DIRECTIONS>* Location::getExits()
 std::list<Entity*> Location::getEntities()
 {
     return this->entities;
+};
+
+ReturnCode Location::connectBothLocations( Direction d,
+                                           Location* other,
+                                           ExitStatus s,
+                                           bool visible )
+{
+    ReturnCode rc = SUCCESS;
+    rc = this->connectLocation( d, other, s, visible );
+    if( rc.Success() )
+    {
+        rc = other->connectLocation( getOppositeDirection( d ), this, s, visible );
+    }
+    return rc;
 };
 
 ReturnCode Location::connectLocation( Direction d, Location* other, ExitStatus s, bool visible )

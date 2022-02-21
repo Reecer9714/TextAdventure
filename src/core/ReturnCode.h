@@ -37,7 +37,7 @@ struct SubSystem
     {
         if( messageArray.second != nullptr && errorcode < messageArray.first )
         {
-            return messageArray.second[ errorcode ];
+            return messageArray.second[ errorcode - 1 ];
         }
 
         return DEFAULT_ERROR_MESSAGE;
@@ -85,18 +85,5 @@ struct ReturnCode
         return ( rhs.errorcode == errorcode && rhs.subsystem == subsystem && rhs.system == system );
     }
 };
-
-struct GlobalSubSystem : public SubSystem
-{
-    constexpr GlobalSubSystem( uint8_t n )
-        : SubSystem( n ){};
-    static const GlobalSubSystem COMMON;
-};
-
-inline constexpr const GlobalSubSystem GlobalSubSystem::COMMON{ 0 };
-
-static constexpr const ReturnCode SUCCESS = ReturnCode( System::COMMON, 0x0000 );
-static constexpr const ReturnCode NOT_IMPLEMENTED = ReturnCode( System::COMMON, 0x0001 );
-static constexpr const ReturnCode NULLPTR_INPUT = ReturnCode( System::COMMON, 0x0002 );
 
 #endif

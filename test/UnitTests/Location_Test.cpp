@@ -1,4 +1,6 @@
 #include "GTest/gtest.h"
+#include <core/GlobalError.h>
+#include <data/DataError.h>
 #include <data/Location.h>
 
 using namespace ::testing;

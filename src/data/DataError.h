@@ -18,6 +18,6 @@ inline constexpr const DataSubSystem DataSubSystem::LOCATION{
     DataSubSystem::ENTITY{ 1 }, DataSubSystem::ITEM{ 2 };
 
 static constexpr const ReturnCode DUPLICATE_CONNECTION =
-    ReturnCode( System::DATA, DataSubSystem::LOCATION, 0x0001 );
+    ReturnCode( System::DATA, DataSubSystem::LOCATION, 1 );
 
 #endif // DATAERROR_H

@@ -1,0 +1,2 @@
+Quit quit exit
+Move north n south s east e west w northeast ne southeast se northwest nw southwest sw up u down d

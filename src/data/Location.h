@@ -6,24 +6,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "DataError.h"
+#include "Direction.h"
 #include "Entity.h"
-
-constexpr size_t NUM_OF_DIRECTIONS = 10;
-
-enum Direction
-{
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    NE,
-    SE,
-    NW,
-    SW,
-    UP,
-    DOWN
-};
+#include "core/ReturnCode.h"
 
 enum ExitStatus
 { // separate
@@ -57,6 +42,10 @@ public:
                                 Location* other,
                                 ExitStatus s = OPEN,
                                 bool visible = true );
+    ReturnCode connectBothLocations( Direction d,
+                                     Location* other,
+                                     ExitStatus s = OPEN,
+                                     bool visible = true );
     void disconnectLocation( Direction d );
 
     void addEntity( Entity* e );
