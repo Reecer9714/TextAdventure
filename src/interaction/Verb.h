@@ -38,13 +38,13 @@ static std::unordered_map<std::string, Verb> const VerbString = {
 
 inline Verb tokenToVerb( std::string token )
 {
-    Verb d = Verb::INVALID;
+    Verb v = Verb::INVALID;
     auto it = VerbString.find( token );
     if( it != VerbString.end() )
     {
-        d = it->second;
+        v = it->second;
     }
-    return d;
+    return v;
 }
 
 #endif // __VERB_H__

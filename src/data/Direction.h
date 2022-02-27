@@ -2,10 +2,11 @@
 #define __DIRECTION_H__
 
 #include <string>
+#include <unordered_map>
 
 constexpr size_t NUM_OF_DIRECTIONS = 10;
 
-enum Direction
+enum class Direction
 {
     NORTH,
     SOUTH,
@@ -22,67 +23,42 @@ enum Direction
 
 inline Direction getOppositeDirection( Direction& d )
 {
-    Direction r = INVALID;
+    Direction r = Direction::INVALID;
     switch( d )
     {
-    case NORTH: r = SOUTH; break;
-    case SOUTH: r = NORTH; break;
-    case EAST: r = WEST; break;
-    case WEST: r = EAST; break;
-    case NE: r = SW; break;
-    case SE: r = NW; break;
-    case NW: r = SE; break;
-    case SW: r = NE; break;
-    case UP: r = DOWN; break;
-    case DOWN: r = UP; break;
-    case INVALID:
-    default: r = INVALID; break;
+    case Direction::NORTH: r = Direction::SOUTH; break;
+    case Direction::SOUTH: r = Direction::NORTH; break;
+    case Direction::EAST: r = Direction::WEST; break;
+    case Direction::WEST: r = Direction::EAST; break;
+    case Direction::NE: r = Direction::SW; break;
+    case Direction::SE: r = Direction::NW; break;
+    case Direction::NW: r = Direction::SE; break;
+    case Direction::SW: r = Direction::NE; break;
+    case Direction::UP: r = Direction::DOWN; break;
+    case Direction::DOWN: r = Direction::UP; break;
+    case Direction::INVALID:
+    default: r = Direction::INVALID; break;
     }
     return r;
 }
 
+static std::unordered_map<std::string, Direction> const DirectionString = {
+    { "north", Direction::NORTH },  { "n", Direction::NORTH },      { "south", Direction::SOUTH },
+    { "s", Direction::SOUTH },      { "east", Direction::EAST },    { "e", Direction::EAST },
+    { "west", Direction::WEST },    { "w", Direction::WEST },       { "northeast", Direction::NE },
+    { "ne", Direction::NE },        { "southeast", Direction::SE }, { "se", Direction::SE },
+    { "northwest", Direction::NW }, { "nw", Direction::NW },        { "southwest", Direction::SW },
+    { "sw", Direction::SW },        { "up", Direction::UP },        { "u", Direction::UP },
+    { "down", Direction::DOWN },    { "d", Direction::DOWN }
+};
+
 inline Direction tokenToDirection( std::string token )
 {
-    Direction d = INVALID;
-    if( token == "north" || token == "n" )
+    Direction d = Direction::INVALID;
+    auto it = DirectionString.find( token );
+    if( it != DirectionString.end() )
     {
-        d = NORTH;
-    }
-    else if( token == "south" || token == "s" )
-    {
-        d = SOUTH;
-    }
-    else if( token == "east" || token == "r" )
-    {
-        d = EAST;
-    }
-    else if( token == "west" || token == "w" )
-    {
-        d = WEST;
-    }
-    else if( token == "northeast" || token == "ne" )
-    {
-        d = NE;
-    }
-    else if( token == "southeast" || token == "se" )
-    {
-        d = SE;
-    }
-    else if( token == "northwest" || token == "nw" )
-    {
-        d = NW;
-    }
-    else if( token == "southwest" || token == "sw" )
-    {
-        d = SW;
-    }
-    else if( token == "up" || token == "u" )
-    {
-        d = UP;
-    }
-    else if( token == "down" || token == "d" )
-    {
-        d = DOWN;
+        d = it->second;
     }
 
     return d;
