@@ -9,6 +9,7 @@
 #include "Direction.h"
 #include "Entity.h"
 #include "core/ReturnCode.h"
+#include "data/Direction.h"
 
 enum ExitStatus
 { // separate
@@ -35,7 +36,7 @@ public:
 
     std::string getName();
     std::string getDesc();
-    std::array<Connection, NUM_OF_DIRECTIONS>* getExits();
+    std::unordered_map<Direction, Connection>& getExits();
     std::list<Entity*> getEntities();
 
     ReturnCode connectLocation( Direction d,
@@ -54,7 +55,7 @@ public:
 private:
     std::string name;
     std::string description;
-    std::array<Connection, NUM_OF_DIRECTIONS> exits;
+    std::unordered_map<Direction, Connection> exits;
     std::list<Entity*> entities;
 };
 

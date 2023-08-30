@@ -23,7 +23,7 @@ struct GameState
         ReturnCode rc = NOT_IMPLEMENTED; // TODO new error
         if( d != Direction::INVALID )
         {
-            Connection c = currentLocation->getExits()->at( static_cast<size_t>( d ) );
+            Connection c = currentLocation->getExits().at( d );
             if( c.connected )
             {
                 // TODO Locked or Visible check

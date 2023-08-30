@@ -4,6 +4,7 @@
 #include "core/GlobalError.h"
 #include "core/ReturnCode.h"
 #include "data/Direction.h"
+#include "data/Location.h"
 
 Location::Location( std::string name, std::string desc )
     : name( std::move( name ) )
@@ -19,9 +20,9 @@ std::string Location::getDesc()
     return this->description;
 };
 
-std::array<Connection, NUM_OF_DIRECTIONS>* Location::getExits()
+std::unordered_map<Direction, Connection>& Location::getExits()
 {
-    return &exits;
+    return exits;
 };
 
 std::list<Entity*> Location::getEntities()
@@ -50,23 +51,19 @@ ReturnCode Location::connectLocation( Direction d, Location* other, ExitStatus s
         return NULLPTR_INPUT;
     }
 
-    std::array<Connection, NUM_OF_DIRECTIONS>::reference connection = this->exits.at( d );
-
-    if( connection.connected )
+    const auto& [ connection, inserted ] = this->exits.try_emplace(
+        d, Connection{ .loc = other, .status = s, .visible = visible, .connected = true } );
+    if( !inserted )
     {
         return DUPLICATE_CONNECTION;
     }
 
-    connection.loc = other;
-    connection.status = s;
-    connection.visible = visible;
-    connection.connected = true;
     return SUCCESS;
 };
 
 void Location::disconnectLocation( Direction d )
 {
-    this->exits.at( d ).connected = false;
+    this->exits.erase( d );
 };
 
 void Location::addEntity( Entity* e )

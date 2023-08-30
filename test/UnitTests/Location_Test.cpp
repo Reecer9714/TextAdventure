@@ -2,6 +2,7 @@
 #include <core/GlobalError.h>
 #include <data/DataError.h>
 #include <data/Location.h>
+#include <stdexcept>
 
 using namespace ::testing;
 
@@ -34,7 +35,7 @@ public:
 
 TEST_F( Location_Test, connectLocation_NullLocation_int )
 {
-    ReturnCode ret = intro->connectLocation( WEST, nullptr );
+    ReturnCode ret = intro->connectLocation( Direction::WEST, nullptr );
 
     EXPECT_EQ( ret, NULLPTR_INPUT );
 };
@@ -42,20 +43,20 @@ TEST_F( Location_Test, connectLocation_NullLocation_int )
 TEST_F( Location_Test, connectLocation_DuplicateConnection_int )
 {
 
-    ReturnCode ret = intro->connectLocation( WEST, west );
+    ReturnCode ret = intro->connectLocation( Direction::WEST, west );
     EXPECT_EQ( ret, SUCCESS );
 
-    ReturnCode ret2 = intro->connectLocation( WEST, west2 );
+    ReturnCode ret2 = intro->connectLocation( Direction::WEST, west2 );
     EXPECT_EQ( ret2, DUPLICATE_CONNECTION );
 };
 
 TEST_F( Location_Test, connectLocation_ConnectedSuccess_int )
 {
 
-    ReturnCode ret = intro->connectLocation( WEST, west );
+    ReturnCode ret = intro->connectLocation( Direction::WEST, west );
     EXPECT_EQ( ret, SUCCESS );
 
-    bool connected = intro->getExits()->at( WEST ).connected;
+    bool connected = intro->getExits().at( Direction::WEST ).connected;
 
     EXPECT_EQ( connected, true );
 };
@@ -63,10 +64,10 @@ TEST_F( Location_Test, connectLocation_ConnectedSuccess_int )
 TEST_F( Location_Test, connectLocation_StatusSuccess_int )
 {
 
-    ReturnCode ret = intro->connectLocation( WEST, west, CLOSED );
+    ReturnCode ret = intro->connectLocation( Direction::WEST, west, CLOSED );
     EXPECT_EQ( ret, SUCCESS );
 
-    ExitStatus status = intro->getExits()->at( WEST ).status;
+    ExitStatus status = intro->getExits().at( Direction::WEST ).status;
 
     EXPECT_EQ( status, CLOSED );
 };
@@ -74,33 +75,30 @@ TEST_F( Location_Test, connectLocation_StatusSuccess_int )
 TEST_F( Location_Test, connectLocation_VisibleSuccess_int )
 {
 
-    ReturnCode ret = intro->connectLocation( WEST, west, CLOSED, false );
+    ReturnCode ret = intro->connectLocation( Direction::WEST, west, CLOSED, false );
     EXPECT_EQ( ret, SUCCESS );
 
-    bool visible = intro->getExits()->at( WEST ).visible;
+    bool visible = intro->getExits().at( Direction::WEST ).visible;
 
     EXPECT_EQ( visible, false );
 };
 
 TEST_F( Location_Test, disconnectLocation_Success_void )
 {
-    intro->disconnectLocation( WEST );
+    intro->disconnectLocation( Direction::WEST );
 
-    bool connected = intro->getExits()->at( WEST ).connected;
-
-    EXPECT_EQ( connected, false );
+    EXPECT_THROW( auto& connection = intro->getExits().at( Direction::WEST ), std::out_of_range );
 };
 
 TEST_F( Location_Test, disconnectLocation_CleanDisconnect_void )
 {
-    ReturnCode retConnectWest = intro->connectLocation( WEST, west );
+    ReturnCode retConnectWest = intro->connectLocation( Direction::WEST, west );
     EXPECT_EQ( retConnectWest, SUCCESS );
 
-    intro->disconnectLocation( WEST );
-    bool connected = intro->getExits()->at( WEST ).connected;
-    EXPECT_EQ( connected, false );
+    intro->disconnectLocation( Direction::WEST );
+    EXPECT_THROW( auto& connection = intro->getExits().at( Direction::WEST ), std::out_of_range );
 
-    ReturnCode retConnectWest2 = intro->connectLocation( WEST, west2, CLOSED, false );
+    ReturnCode retConnectWest2 = intro->connectLocation( Direction::WEST, west2, CLOSED, false );
     EXPECT_EQ( retConnectWest2, SUCCESS );
 
     Connection expected;
@@ -109,7 +107,7 @@ TEST_F( Location_Test, disconnectLocation_CleanDisconnect_void )
     expected.visible = false;
     expected.connected = true;
 
-    Connection returned = intro->getExits()->at( WEST );
+    Connection returned = intro->getExits().at( Direction::WEST );
 
     EXPECT_EQ( returned.loc, expected.loc );
     EXPECT_EQ( returned.status, expected.status );

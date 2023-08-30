@@ -4,6 +4,7 @@
 
 #include "core/GameState.h"
 #include "core/stringutils.h"
+#include "data/Direction.h"
 #include "data/Entity.h"
 #include "data/Location.h"
 #include "interaction/ActionPerformer.h"
@@ -31,9 +32,9 @@ int main()
         auto* seRoom = new Location( "SE Room", "This is the room to the SE" );
         auto* basement = new Location( "Basement", "This is the creepy basement" );
 
-        intro->connectBothLocations( NORTH, northRoom );
-        intro->connectBothLocations( SE, seRoom );
-        intro->connectBothLocations( DOWN, basement );
+        intro->connectBothLocations( Direction::NORTH, northRoom );
+        intro->connectBothLocations( Direction::SE, seRoom );
+        intro->connectBothLocations( Direction::DOWN, basement );
 
         state.currentLocation = intro;
     }
