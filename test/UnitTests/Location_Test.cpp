@@ -56,9 +56,9 @@ TEST_F( Location_Test, connectLocation_ConnectedSuccess_int )
     ReturnCode ret = intro->connectLocation( Direction::WEST, west );
     EXPECT_EQ( ret, SUCCESS );
 
-    bool connected = intro->getExits().at( Direction::WEST ).connected;
+    auto connection = intro->getExits().at( Direction::WEST );
 
-    EXPECT_EQ( connected, true );
+    EXPECT_NE( connection.loc, nullptr );
 };
 
 TEST_F( Location_Test, connectLocation_StatusSuccess_int )
@@ -105,12 +105,10 @@ TEST_F( Location_Test, disconnectLocation_CleanDisconnect_void )
     expected.loc = west2;
     expected.status = CLOSED;
     expected.visible = false;
-    expected.connected = true;
 
     Connection returned = intro->getExits().at( Direction::WEST );
 
     EXPECT_EQ( returned.loc, expected.loc );
     EXPECT_EQ( returned.status, expected.status );
     EXPECT_EQ( returned.visible, expected.visible );
-    EXPECT_EQ( returned.connected, expected.connected );
 };

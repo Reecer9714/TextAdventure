@@ -23,24 +23,27 @@ class Location;
 
 struct Connection
 {
-    Location* loc = nullptr;
+    const Location* loc = nullptr;
     ExitStatus status = OPEN;
     bool visible = false;
-    bool connected = false;
+    bool locked = false;
+    bool stuck = false;
 };
 
 class Location
 {
 public:
-    Location( std::string name, std::string desc );
+    Location( const std::string& name );
+    Location( const std::string& name, const std::string& desc );
 
-    std::string getName();
-    std::string getDesc();
-    std::unordered_map<Direction, Connection>& getExits();
+    std::string getName() const;
+    std::string getDesc() const;
+    void setDesc( const std::string& desc );
+    const std::unordered_map<Direction, Connection>& getExits() const;
     std::list<Entity*> getEntities();
 
     ReturnCode connectLocation( Direction d,
-                                Location* other,
+                                const Location* other,
                                 ExitStatus s = OPEN,
                                 bool visible = true );
     ReturnCode connectBothLocations( Direction d,

@@ -13,7 +13,7 @@ struct GameState
 {
     ReturnCode code{ SUCCESS };
     bool running = false;
-    Location* currentLocation;
+    const Location* currentLocation;
     Entity player;
     std::vector<std::string> currentTokens;
     size_t tokenLocation;
@@ -24,7 +24,7 @@ struct GameState
         if( d != Direction::INVALID )
         {
             Connection c = currentLocation->getExits().at( d );
-            if( c.connected )
+            if( c.loc )
             {
                 // TODO Locked or Visible check
                 currentLocation = c.loc;
