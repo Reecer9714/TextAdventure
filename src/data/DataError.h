@@ -3,21 +3,17 @@
 
 #include "core/ReturnCode.h"
 
-constexpr const std::array<const char*, 1> LocationMessages = { "Duplicate Connection" };
+constexpr const std::array LocationMessages = { "Duplicate Connection" };
 
-struct DataSubSystem : public SubSystem
+static constexpr const SubSystem DataSubSystem{ System::DATA, LocationMessages };
+enum DataSubSystemCode
 {
-    constexpr DataSubSystem( uint8_t n, ErrorMessageArray msgs = { 0, nullptr } )
-        : SubSystem( n, msgs ){};
-    static const DataSubSystem LOCATION, ENTITY, ITEM;
+    LOCATION,
+    ENTITY,
+    ITEM
 };
 
-inline constexpr const DataSubSystem DataSubSystem::LOCATION{
-    0, CastErrorMessageArray( LocationMessages )
-},
-    DataSubSystem::ENTITY{ 1 }, DataSubSystem::ITEM{ 2 };
-
-static constexpr const ReturnCode DUPLICATE_CONNECTION =
-    ReturnCode( System::DATA, DataSubSystem::LOCATION, 1 );
+static constexpr const auto DUPLICATE_CONNECTION =
+    DataSubSystem.CreateCode( DataSubSystemCode::LOCATION, 1 );
 
 #endif // DATAERROR_H
